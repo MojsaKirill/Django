@@ -5,6 +5,13 @@
     <title>Main page</title>
 </head>
 <body bgcolor="#f5f5dc">
+    {% if user %}
+        <p align="right">Привет, {{ user }}!</p>
+        <p align="right"><a href="/logout">Выйти</a></p>
+    {% else %}
+        <p align="right"><a href="/accounts/login">Войти</a></p>
+        <p align="right"><a href="/registration">Регистрация</a></p>
+    {% endif %}
     <h1 align="center">Список пользователей</h1>
     <form method="POST">
     <h2>Добавить пользователя</h2>

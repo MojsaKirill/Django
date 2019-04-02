@@ -1,8 +1,12 @@
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib.auth.models import User
+from django.contrib.auth import logout
 
 from myapp.models import Person
-from .forms import UserForm
+from .forms import UserForm, RegistrationForm
+
+
 # Create your views here.
 
 def index(request):
@@ -14,7 +18,7 @@ def index(request):
     else:
         userform = UserForm()
         people = Person.objects.all()
-        return render(request, "index.html", {"form": userform, "peoples": people})
+        return render(request, "index.html", {"form": userform, "peoples": people, "user": request.user.username})
 
 def editPerson(request, id):
     try:
@@ -37,3 +41,20 @@ def deletePerson(request, id):
         return HttpResponseRedirect("/")
     except Person.DoesNotExist:
         return HttpResponseNotFound("<h2>Person not found</h2>")
+
+def register(request):
+    form = RegistrationForm()
+
+    if request.method == 'POST':
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        user = User.objects.create_user(username=username, password=password)
+        user.password.encode()
+        user.save()
+        return HttpResponseRedirect("/")
+    else:
+        return render(request, "registration/register.html", {"form" : form})
+
+def logoutUser(request):
+    logout(request)
+    return HttpResponseRedirect("/")
