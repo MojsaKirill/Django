@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main page</title>
+</head>
+<body bgcolor="#f5f5dc">
+    <h1 align="center">Список пользователей</h1>
+    <form method="POST">
+    <h2>Добавить пользователя</h2>
+    <table>
+        {{ form }}
+    </table>
+        <input type="submit" value="Send">
+    </form>
+    <br>
+    <table>
+        <thead><th>Id</th><th>Имя</th><th>Возраст</th><th></th></thead>
+        {% for person in peoples %}
+        <tr>
+            <td>{{ person.id }}</td>
+            <td>{{ person.name }}</td>
+            <td>{{ person.age }}</td>
+            <td><a href="/edit/{{person.id}}">Изменить</a> | <a href="delete/{{person.id}}">Удалить</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
