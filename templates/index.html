@@ -2,35 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Main page</title>
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
-<body bgcolor="#f5f5dc">
-    {% if user %}
-        <p align="right">Привет, {{ user }}!</p>
-        <p align="right"><a href="/logout">Выйти</a></p>
-    {% else %}
-        <p align="right"><a href="/accounts/login">Войти</a></p>
-        <p align="right"><a href="/registration">Регистрация</a></p>
-    {% endif %}
-    <h1 align="center">Список пользователей</h1>
-    <form method="POST">
-    <h2>Добавить пользователя</h2>
-    <table>
-        {{ form }}
-    </table>
-        <input type="submit" value="Send">
-    </form>
-    <br>
-    <table>
-        <thead><th>Id</th><th>Имя</th><th>Возраст</th><th></th></thead>
-        {% for person in peoples %}
-        <tr>
-            <td>{{ person.id }}</td>
-            <td>{{ person.name }}</td>
-            <td>{{ person.age }}</td>
-            <td><a href="/edit/{{person.id}}">Изменить</a> | <a href="delete/{{person.id}}">Удалить</a></td>
-        </tr>
-        {% endfor %}
-    </table>
+<body>
+<div class="wrapper">
+    <div class="header">
+        {% if user.is_authenticated %}
+            <a href="accounts/logout" class="btn btn-primary" role="button" name="LogOut">Выйти</a>
+        {% else %}
+            <a href="/accounts/login" class="btn btn-primary" role="button" name="LogIn">Войти</a>
+            <a href="/registration" class="btn btn-primary" role="button" , name="SingUp">Регистрация</a>
+        {% endif %}
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for person in persons %}
+            <tr>
+                <td>{{ person.id }}</td>
+                <td>{{ person.name }}</td>
+                <td>{{ person.age }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <form method="POST">
+            <table>
+                {% csrf_token %}
+                {{ form }}
+            </table>
+            <input type="submit" value="Send">
+        </form>
+
+        {% comment %}<table>
+            <thead>
+            <th>Id</th>
+            <th>Имя</th>
+            <th>Возраст</th>
+            <th></th>
+            </thead>
+            {% for person in persons %}
+                <tr>
+                    <td>{{ person.id }}</td>
+                    <td>{{ person.name }}</td>
+                    <td>{{ person.age }}</td>
+                    <td><a href="/edit/{{ person.id }}">Изменить</a> | <a href="delete/{{ person.id }}">Удалить</a></td>
+                </tr>
+            {% endfor %}
+        </table>{% endcomment %}
+    </div>
+</div>
 </body>
 </html>

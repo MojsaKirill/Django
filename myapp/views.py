@@ -1,10 +1,10 @@
 from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login
 
 from myapp.models import Person
-from .forms import UserForm, RegistrationForm
+from .forms import UserForm, RegistrationForm, LoginForm
 
 
 # Create your views here.
@@ -17,8 +17,8 @@ def index(request):
         return HttpResponseRedirect("/")
     else:
         userform = UserForm()
-        people = Person.objects.all()
-        return render(request, "index.html", {"form": userform, "peoples": people, "user": request.user.username})
+        persons = Person.objects.all()
+        return render(request, "index.html", {"form": userform, "persons": persons, "user": request.user})
 
 def editPerson(request, id):
     try:
@@ -48,13 +48,15 @@ def register(request):
     if request.method == 'POST':
         username = request.POST.get("username")
         password = request.POST.get("password")
-        user = User.objects.create_user(username=username, password=password)
-        user.password.encode()
-        user.save()
-        return HttpResponseRedirect("/")
+        email = request.POST.get("email")
+        try:
+            User.objects.create_user(username=username, password=password, email=email)
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return HttpResponseRedirect("/")
+        except IndentationError:
+            return render(request, "registration/register.html", {"form": form, "error": "Такой логин уже существует"})
+        except:
+            return render(request, "registration/register.html", {"form" : form, "error" : "Ошибка"})
     else:
         return render(request, "registration/register.html", {"form" : form})
-
-def logoutUser(request):
-    logout(request)
-    return HttpResponseRedirect("/")
