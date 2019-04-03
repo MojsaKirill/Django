@@ -1,21 +1,53 @@
-.header {
+#header {
     padding-top: 5px;
     width: 100%;
     height: 50px;
-    background-color: slategray;
+	background-color: black;
 }
 #loginForm {
     width: 200px;
 }
+#wrapper {
+	width: 100%;
+	height: 100%;
+}
 a[name="SingUp"]  {
-    float: right;
     margin-right : 5px;
 }
 a[name="LogIn"] {
-    float: right;
-    margin-right : 5px;
+    margin-right : 10px;
 }
 a[name="LogOut"] {
     float: right;
     margin-right : 5px;
+}
+body {
+	background-color: #F3F0F0;
+}
+
+.navbar-default {
+	justify-content: flex-end;
+}
+
+.navbar-right {
+    color: white;
+    justify-content: flex-start;
+    display: -ms-flexbox;
+    flex-wrap: wrap;
+    align-items: center;
+    background-color: #343a40;
+    position: relative;
+    display: flex;
+    padding: .5rem 1rem;
+}
+
+.navbar {
+    justify-content: flex-end;
+    display: -ms-flexbox;
+    flex-wrap: wrap;
+    align-items: center;
+    background-color: #343a40;
+    position: relative;
+    display: flex;
+    padding: .5rem 1rem;
 }
