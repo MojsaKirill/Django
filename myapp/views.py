@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 
-from myapp.models import Person
+from myapp.models import Person, Note
 from .forms import UserForm, RegistrationForm, LoginForm
 
 
@@ -17,8 +17,8 @@ def index(request):
         return HttpResponseRedirect("/")
     else:
         userform = UserForm()
-        persons = Person.objects.all()
-        return render(request, "index.html", {"form": userform, "persons": persons, "user": request.user})
+        notes = Note.objects.all()
+        return render(request, "index.html", {"form": userform, "notes": notes, "user": request.user})
 
 def editPerson(request, id):
     try:
@@ -60,3 +60,25 @@ def register(request):
             return render(request, "registration/register.html", {"form" : form, "error" : "Ошибка"})
     else:
         return render(request, "registration/register.html", {"form" : form})
+
+def editNote(request, id):
+    try:
+        note = Note.objects.get(id=id)
+
+        if request.method == "POST":
+            note.title = request.POST.get("title")
+            note.description = request.POST.get("description")
+            note.save()
+            return HttpResponseRedirect("/")
+        else:
+            return render(request, "edit.html", {"note": note})
+    except Person.DoesNotExist:
+        return HttpResponseNotFound("<h2>Person not found</h2>")
+
+def deleteNote(request, id):
+    try:
+        note = Note.objects.get(id=id)
+        note.delete()
+        return HttpResponseRedirect("/")
+    except Person.DoesNotExist:
+        return HttpResponseRedirect("/")

@@ -11,32 +11,42 @@
 <div id="wrapper">
     <div>
         {% if user.is_authenticated %}
-            <nav class="navbar">
-                <span class="navbar-right" style="justify-content: flex-start">{{ user.username }}</span>
-				<a href="accounts/logout" class="btn btn-primary" role="button" name="LogOut">Выйти</a>
+            <nav class="navbar navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">Notes</a>
+                <div class="inline">
+                    <span class="username">{{ user.username }}</span>
+				    <a href="accounts/logout" class="btn btn-primary" role="button" name="LogOut">Выйти</a>
+                </div>
 			</nav>
         {% else %}
-			<nav class="navbar">
+			<nav class="navbar navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">Notes</a>
+                <div class="inline">
 				<a href="/accounts/login" class="btn btn-primary" role="button" name="LogIn">Войти</a>
 				<a href="/registration" class="btn btn-primary" role="button" , name="SingUp">Регистрация</a>
+                </div>
 			</nav>
         {% endif %}
     </div>
     <div>
-        <table class="table">
+        <table class="table table-hover">
             <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Age</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
             </tr>
             </thead>
             <tbody>
-            {% for person in persons %}
+            {% for note in notes %}
             <tr>
-                <td>{{ person.id }}</td>
-                <td>{{ person.name }}</td>
-                <td>{{ person.age }}</td>
+                <td>{{ note.id }}</td>
+                <td>{{ note.title }}</td>
+                <td>{{ note.description }}</td>
+                <td><a href="/edit/{{ note.id }}">Изменить</a></td>
+                <td><a href="delete/{{ note.id }}">Удалить</a></td>
             </tr>
             {% endfor %}
             </tbody>

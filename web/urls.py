@@ -21,8 +21,8 @@ from myapp import views
 urlpatterns = [
     path('', views.index, name='home'),
     path('admin/', admin.site.urls),
-    path('edit/<int:id>/', views.editPerson),
-    path('delete/<int:id>/', views.deletePerson),
+    path('edit/<int:id>/', views.editNote),
+    path('delete/<int:id>/', views.deleteNote),
     path('registration/', views.register),
 ]
 

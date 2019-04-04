@@ -22,32 +22,12 @@ a[name="LogOut"] {
     margin-right : 5px;
 }
 body {
-	background-color: #F3F0F0;
-}
-
-.navbar-default {
-	justify-content: flex-end;
-}
-
-.navbar-right {
-    color: white;
-    justify-content: flex-start;
-    display: -ms-flexbox;
-    flex-wrap: wrap;
-    align-items: center;
-    background-color: #343a40;
-    position: relative;
-    display: flex;
-    padding: .5rem 1rem;
+	background-color: #FAFAFA;
 }
 
 .navbar {
-    justify-content: flex-end;
-    display: -ms-flexbox;
-    flex-wrap: wrap;
-    align-items: center;
-    background-color: #343a40;
-    position: relative;
-    display: flex;
-    padding: .5rem 1rem;
+    color: white;
+}
+.username {
+    align-content: center;
 }
