@@ -11,21 +11,35 @@
 <div id="wrapper">
     <div>
         {% if user.is_authenticated %}
-            <nav class="navbar navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <img src="/static/notes.ico" width="30" height="30" class="d-inline-block align-top" alt="">
                 <a class="navbar-brand" href="#">Notes</a>
-                <div class="inline">
-                    <span class="username">{{ user.username }}</span>
-				    <a href="accounts/logout" class="btn btn-primary" role="button" name="LogOut">Выйти</a>
+
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/add" aria-disabled="true">Add note</a>
+                        </li>
+                    </ul>
+                    <div class="form-inline my-2 my-lg-0">
+                        <a href="accounts/logout" class="btn btn-primary" role="button" name="LogOut">Выйти</a>
+                    </div>
                 </div>
-			</nav>
+            </nav>
         {% else %}
-			<nav class="navbar navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <img src="/static/notes.ico" width="30" height="30" class="d-inline-block align-top" alt="">
                 <a class="navbar-brand" href="#">Notes</a>
-                <div class="inline">
-				<a href="/accounts/login" class="btn btn-primary" role="button" name="LogIn">Войти</a>
-				<a href="/registration" class="btn btn-primary" role="button" , name="SingUp">Регистрация</a>
+
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    </ul>
+                    <div class="form-inline my-2 my-lg-0">
+                        <a href="/accounts/login" class="btn btn-primary" role="button" name="LogIn">Войти</a>
+                        <a href="/registration" class="btn btn-primary" role="button" , name="SingUp">Регистрация</a>
+                    </div>
                 </div>
-			</nav>
+            </nav>
         {% endif %}
     </div>
     <div>
@@ -41,13 +55,13 @@
             </thead>
             <tbody>
             {% for note in notes %}
-            <tr>
-                <td>{{ note.id }}</td>
-                <td>{{ note.title }}</td>
-                <td>{{ note.description }}</td>
-                <td><a href="/edit/{{ note.id }}">Изменить</a></td>
-                <td><a href="delete/{{ note.id }}">Удалить</a></td>
-            </tr>
+                <tr>
+                    <td>{{ note.id }}</td>
+                    <td>{{ note.title }}</td>
+                    <td>{{ note.description }}</td>
+                    <td><a href="/edit/{{ note.id }}">Изменить</a></td>
+                    <td><a href="delete/{{ note.id }}">Удалить</a></td>
+                </tr>
             {% endfor %}
             </tbody>
         </table>

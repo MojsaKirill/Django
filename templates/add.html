@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add note</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="row justify-content-center align-items-center" style="height:100vh">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" name="title" class="form-control" placeholder="Enter title">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea type="text" name="description" class="form-control", rows="14" placeholder="Enter description"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" value="login">Accept</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

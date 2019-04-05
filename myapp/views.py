@@ -1,9 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 
-from myapp.models import Person, Note
+from myapp.models import Person, Note, CustomUser
 from .forms import UserForm, RegistrationForm, LoginForm
 
 
@@ -61,6 +62,7 @@ def register(request):
     else:
         return render(request, "registration/register.html", {"form" : form})
 
+@login_required
 def editNote(request, id):
     try:
         note = Note.objects.get(id=id)
@@ -75,6 +77,7 @@ def editNote(request, id):
     except Person.DoesNotExist:
         return HttpResponseNotFound("<h2>Person not found</h2>")
 
+@login_required
 def deleteNote(request, id):
     try:
         note = Note.objects.get(id=id)
@@ -82,3 +85,14 @@ def deleteNote(request, id):
         return HttpResponseRedirect("/")
     except Person.DoesNotExist:
         return HttpResponseRedirect("/")
+
+@login_required
+def addNote(request):
+    if request.method == "POST":
+        title = request.POST.get("title")
+        description = request.POST.get("description")
+        note = Note.objects.create(title=title, description=description)
+
+        return HttpResponseRedirect("/")
+    else:
+        return render(request, "add.html")

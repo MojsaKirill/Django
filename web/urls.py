@@ -24,6 +24,7 @@ urlpatterns = [
     path('edit/<int:id>/', views.editNote),
     path('delete/<int:id>/', views.deleteNote),
     path('registration/', views.register),
+    path('add/', views.addNote),
 ]
 
 urlpatterns += [
